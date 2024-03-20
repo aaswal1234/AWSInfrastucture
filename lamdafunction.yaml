@@ -1,0 +1,13 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  MyPythonLambdaFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        S3Bucket: integrationframeworktest
+        S3Key: index.zip
+      FunctionName: MyPythonLambdaFunction
+      Handler: index.handler
+      Role: arn:aws:iam::119391704005:role/CloudFormationLambdaRole
+      Runtime: python3.8
+
