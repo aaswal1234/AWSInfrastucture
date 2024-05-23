@@ -1,0 +1,134 @@
+---
+Metadata:
+  TemplateId: "arn:aws:cloudformation:ap-south-1:119391704005:generatedTemplate/51c6c6bb-b4cb-407a-a104-7f587a89471c"
+Resources:
+  DataBrewJob00Jobmprje00iy1T8:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::DataBrew::Job"
+    DeletionPolicy: "Retain"
+    Properties:
+      MaxRetries: 0
+      Type: "RECIPE"
+      ProjectName: "Project-mpr-jedemo"
+      LogSubscription: "DISABLE"
+      Timeout: 10
+      Outputs:
+      - PartitionColumns: []
+        Overwrite: true
+        Format: "CSV"
+        MaxOutputFiles: 1
+        FormatOptions:
+          Csv:
+            Delimiter: ","
+        Location:
+          Bucket: "integrationframeworkdemo1"
+          BucketOwner: "119391704005"
+          Key: "intermediate/databrewoutput/mpr_je/"
+      RoleArn: "arn:aws:iam::119391704005:role/service-role/AWSGlueDataBrewServiceRole-Member-Eligibility"
+      
+      Name: "Job-mpr-jedemo"
+      MaxCapacity: 2
+  DataBrewJob00Jobfilecomparison004CtoB:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::DataBrew::Job"
+    DeletionPolicy: "Retain"
+    Properties:
+      MaxRetries: 0
+      Type: "RECIPE"
+      ProjectName: "Project-filecomparisondemo"
+      LogSubscription: "DISABLE"
+      Timeout: 2880
+      Outputs:
+      - PartitionColumns: []
+        Overwrite: true
+        Format: "CSV"
+        MaxOutputFiles: 1
+        FormatOptions:
+          Csv:
+            Delimiter: ","
+        Location:
+          Bucket: "integrationframeworkdemo1"
+          BucketOwner: "119391704005"
+          Key: "intermediate/databrewoutput/file_comparison/"
+      RoleArn: "arn:aws:iam::119391704005:role/service-role/AWSGlueDataBrewServiceRole-Member-Eligibility"
+      
+      Name: "Job-filecomparisondemo"
+      MaxCapacity: 2
+  DataBrewJob00Jobsocdata00QcvW8:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::DataBrew::Job"
+    DeletionPolicy: "Retain"
+    Properties:
+      MaxRetries: 0
+      Type: "RECIPE"
+      ProjectName: "Project-soc-datademo"
+      LogSubscription: "DISABLE"
+      Timeout: 2880
+      Outputs:
+      - PartitionColumns: []
+        Overwrite: true
+        Format: "CSV"
+        MaxOutputFiles: 1
+        FormatOptions:
+          Csv:
+            Delimiter: ","
+        Location:
+          Bucket: "integrationframeworkdemo1"
+          BucketOwner: "119391704005"
+          Key: "intermediate/databrewoutput/soc_data/"
+      RoleArn: "arn:aws:iam::119391704005:role/service-role/AWSGlueDataBrewServiceRole-Member-Eligibility"
+      
+      Name: "Job-soc-datademo"
+      MaxCapacity: 2
+  DataBrewJob00jobprtmpraddrchangedhcs83400pC3rJ:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::DataBrew::Job"
+    DeletionPolicy: "Retain"
+    Properties:
+      MaxRetries: 0
+      Type: "RECIPE"
+      ProjectName: "Project-mpr-address-changedemo"
+      LogSubscription: "DISABLE"
+      Timeout: 2880
+      Outputs:
+      - PartitionColumns: []
+        Overwrite: true
+        Format: "CSV"
+        MaxOutputFiles: 1
+        FormatOptions:
+          Csv:
+            Delimiter: ","
+        Location:
+          Bucket: "integrationframeworkdemo1"
+          BucketOwner: "119391704005"
+          Key: "intermediate/databrewoutput/prt_mpr_addr_change_dhcs_834/"
+      RoleArn: "arn:aws:iam::119391704005:role/service-role/AWSGlueDataBrewServiceRole-Member-Eligibility"
+      
+      Name: "job-prt-mpr-addr-change-dhcs-834demo"
+      MaxCapacity: 2
+  DataBrewJob00Job834momarbal001shxY:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::DataBrew::Job"
+    DeletionPolicy: "Retain"
+    Properties:
+      MaxRetries: 0
+      Type: "RECIPE"
+      ProjectName: "Project-834-mom-ar-baldemo"
+      LogSubscription: "DISABLE"
+      Timeout: 2880
+      Outputs:
+      - PartitionColumns: []
+        Overwrite: true
+        Format: "CSV"
+        MaxOutputFiles: 1
+        FormatOptions:
+          Csv:
+            Delimiter: ","
+        Location:
+          Bucket: "integrationframeworkdemo1"
+          BucketOwner: "119391704005"
+          Key: "intermediate/databrewoutput/834_mom_ar/"
+      RoleArn: "arn:aws:iam::119391704005:role/service-role/AWSGlueDataBrewServiceRole-Member-Eligibility"
+      
+      Name: "Job-834-mom-ar-baldemo"
+      MaxCapacity: 2

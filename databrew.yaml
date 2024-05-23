@@ -1,0 +1,50 @@
+Resources:
+  DataBrewRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: [glue.amazonaws.com, databrew.amazonaws.com]
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: DataBrewPolicy
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:PutObject
+                  - glue:CreateDatabase
+                  - glue:GetDatabase
+                  - glue:UpdateDatabase
+                  - glue:DeleteDatabase
+                  - glue:CreateTable
+                  - glue:GetTable
+                  - glue:UpdateTable
+                  - glue:DeleteTable
+                  - glue:GetTableVersion
+                  - glue:GetTableVersions
+                  - glue:GetTableVersion
+                  - glue:GetTableVersions
+                  - glue:BatchDeleteTableVersion
+                  - glue:BatchGetTableVersion
+                  - glue:SearchTables
+                  - glue:CreateTableVersion
+                  - databrew:*
+                Resource: "*"
+
+  DataBrewProject:
+    Type: AWS::DataBrew::Project
+    Properties:
+      Name: MyDataBrewProject
+      DatasetName: myDataset
+      RecipeName: myRecipe
+      RoleArn: !GetAtt DataBrewRole.Arn
+      
+      Tags:
+        - Key: Environment
+          Value: Production

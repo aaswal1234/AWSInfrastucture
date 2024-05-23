@@ -1,0 +1,198 @@
+---
+Metadata:
+  TemplateId: "arn:aws:cloudformation:us-east-1:119391704005:generatedTemplate/d026c9ae-6619-4c7c-91f2-f529d065a052"
+Parameters:
+  LambdaFunction00Lambdainvokedatabrewmembereligibility00MXqdHCodeS3BucketOneOfKIrgP:
+    NoEcho: "true"
+    Type: "String"
+    Description: "An Amazon S3 bucket in the same AWS-Region as your function. The\
+      \ bucket can be in a different AWS-account.\nThis property can be replaced with\
+      \ other exclusive properties"
+  LambdaFunction00Lambdainvokegluemembereligibility00Tmy0OCodeS3KeyOneOf2wtJ7:
+    NoEcho: "true"
+    Type: "String"
+    Description: "The Amazon S3 key of the deployment package.\nThis property can\
+      \ be replaced with other exclusive properties"
+  LambdaFunction00Lambdainvokegluemembereligibility00Tmy0OCodeS3BucketOneOfEm5ML:
+    NoEcho: "true"
+    Type: "String"
+    Description: "An Amazon S3 bucket in the same AWS-Region as your function. The\
+      \ bucket can be in a different AWS-account.\nThis property can be replaced with\
+      \ other exclusive properties"
+  LambdaFunction00Lambdainvokedatabrewmembereligibility00MXqdHCodeS3KeyOneOfG6Rh2:
+    NoEcho: "true"
+    Type: "String"
+    Description: "The Amazon S3 key of the deployment package.\nThis property can\
+      \ be replaced with other exclusive properties"
+Resources:
+  IAMRole00Lambdainvokedatabrewmembereligibilityrolet7b5diar00R4vEs:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::IAM::Role"
+    DeletionPolicy: "Retain"
+    Properties:
+      Path: "/service-role/"
+      ManagedPolicyArns:
+      - "arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess"
+      - "arn:aws:iam::119391704005:policy/service-role/AWSLambdaBasicExecutionRole-9e39e7f6-d4f7-42d3-9698-012d5df05135"
+      MaxSessionDuration: 3600
+      RoleName: "Lambda-invoke-databrew-mem-eligibility-rolelambda4-t7b5diar"
+      Policies:
+      - PolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+          - Resource:
+            - "*"
+            Action:
+            - "glue:GetJob"
+            - "glue:GetJobRun"
+            - "glue:StartJobRun"
+            - "glue:GetTable"
+            Effect: "Allow"
+            Sid: "allowstartgluejob"
+        PolicyName: "allowstartgluejob"
+      - PolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+          - Resource:
+            - "arn:aws:databrew:*:119391704005:schedule/*"
+            - "arn:aws:databrew:*:119391704005:project/*"
+            - "arn:aws:databrew:*:119391704005:job/*"
+            - "arn:aws:databrew:*:119391704005:ruleset/*"
+            - "arn:aws:databrew:*:119391704005:recipe/*"
+            - "arn:aws:databrew:*:119391704005:dataset/*"
+            Action:
+            - "databrew:DescribeJob"
+            - "databrew:StartProjectSession"
+            - "databrew:ListTagsForResource"
+            - "databrew:DeleteJob"
+            - "databrew:DescribeDataset"
+            - "databrew:DescribeSchedule"
+            - "databrew:DescribeRuleset"
+            - "databrew:StartJobRun"
+            - "databrew:StopJobRun"
+            - "databrew:DescribeJobRun"
+            - "databrew:ListJobRuns"
+            - "databrew:DescribeProject"
+            - "databrew:ListRecipeVersions"
+            - "databrew:DescribeRecipe"
+            Effect: "Allow"
+            Sid: "VisualEditor0"
+          - Resource: "*"
+            Action:
+            - "databrew:CreateRecipe"
+            - "databrew:ListDatasets"
+            - "databrew:ListJobs"
+            - "databrew:ListSchedules"
+            - "databrew:ListRecipes"
+            - "databrew:CreateRecipeJob"
+            - "databrew:ListProjects"
+            - "databrew:ListRulesets"
+            Effect: "Allow"
+            Sid: "VisualEditor1"
+        PolicyName: "DatabrewJobRunAccesslambda4"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+        - Action: "sts:AssumeRole"
+          Effect: "Allow"
+          Principal:
+            Service: "lambda.amazonaws.com"
+  IAMRole00Lambdainvokegluemembereligibilityroleggz9260f002k2kP:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::IAM::Role"
+    DeletionPolicy: "Retain"
+    Properties:
+      Path: "/service-role/"
+      ManagedPolicyArns:
+      - "arn:aws:iam::119391704005:policy/service-role/AWSLambdaBasicExecutionRole-c3afe515-ca98-4668-8fe8-96c66585a0e2"
+      MaxSessionDuration: 3600
+      RoleName: "Lambda-invoke-glue-mem-eligibility-rolelambda4-ggz9260f"
+      Policies:
+      - PolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+          - Resource: "arn:aws:glue:*:119391704005:job/*"
+            Action:
+            - "glue:StartJobRun"
+            - "glue:GetJobRun"
+            - "glue:GetJobRuns"
+            Effect: "Allow"
+            Sid: "VisualEditor0"
+          - Resource: "*"
+            Action: "glue:GetJobs"
+            Effect: "Allow"
+            Sid: "VisualEditor1"
+        PolicyName: "Glue_Job_Run_Accesslambda4"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+        - Action: "sts:AssumeRole"
+          Effect: "Allow"
+          Principal:
+            Service: "lambda.amazonaws.com"
+  LambdaFunction00Lambdainvokedatabrewmembereligibility00MXqdH:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Lambda::Function"
+    DeletionPolicy: "Retain"
+    Properties:
+      MemorySize: 128
+      Description: ""
+      TracingConfig:
+        Mode: "PassThrough"
+      Timeout: 20
+      RuntimeManagementConfig:
+        UpdateRuntimeOn: "Auto"
+      Handler: "lambda_function.lambda_handler"
+      Code:
+        S3Bucket:
+          Ref: "LambdaFunction00Lambdainvokedatabrewmembereligibility00MXqdHCodeS3BucketOneOfKIrgP"
+        S3Key:
+          Ref: "LambdaFunction00Lambdainvokedatabrewmembereligibility00MXqdHCodeS3KeyOneOfG6Rh2"
+      Role:
+        Fn::GetAtt:
+        - "IAMRole00Lambdainvokedatabrewmembereligibilityrolet7b5diar00R4vEs"
+        - "Arn"
+      FileSystemConfigs: []
+      FunctionName: "Lambda-invoke-databrew-mem-eligibilitydemo1"
+      Runtime: "python3.10"
+      PackageType: "Zip"
+      LoggingConfig:
+        LogFormat: "Text"
+        LogGroup: "/aws/lambda/Lambda-invoke-databrew-member-eligibilitydemo1"
+      EphemeralStorage:
+        Size: 512
+      Architectures:
+      - "x86_64"
+  LambdaFunction00Lambdainvokegluemembereligibility00Tmy0O:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Lambda::Function"
+    DeletionPolicy: "Retain"
+    Properties:
+      MemorySize: 128
+      Description: ""
+      TracingConfig:
+        Mode: "PassThrough"
+      Timeout: 3
+      RuntimeManagementConfig:
+        UpdateRuntimeOn: "Auto"
+      Handler: "lambda_function.lambda_handler"
+      Code:
+        S3Bucket:
+          Ref: "LambdaFunction00Lambdainvokegluemembereligibility00Tmy0OCodeS3BucketOneOfEm5ML"
+        S3Key:
+          Ref: "LambdaFunction00Lambdainvokegluemembereligibility00Tmy0OCodeS3KeyOneOf2wtJ7"
+      Role:
+        Fn::GetAtt:
+        - "IAMRole00Lambdainvokegluemembereligibilityroleggz9260f002k2kP"
+        - "Arn"
+      FileSystemConfigs: []
+      FunctionName: "Lambda-invoke-glue-member-eligibilitydemo1"
+      Runtime: "python3.10"
+      PackageType: "Zip"
+      LoggingConfig:
+        LogFormat: "Text"
+        LogGroup: "/aws/lambda/Lambda-invoke-glue-member-eligibilitydemo1"
+      EphemeralStorage:
+        Size: 512
+      Architectures:
+      - "x86_64"

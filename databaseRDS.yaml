@@ -1,0 +1,218 @@
+---
+Metadata:
+  TemplateId: "arn:aws:cloudformation:ap-south-1:119391704005:generatedTemplate/65ae5f0b-ad6f-49c3-bfd1-84276e593cea"
+Parameters:
+  RDSDBSubnetGroup00defaultvpc057085822683d624400CRCN1SubnetIdsm41Iw:
+    NoEcho: "true"
+    Type: "CommaDelimitedList"
+    Description: "The EC2 Subnet IDs for the DB subnet group."
+Resources:
+  KMSKey00fb1d1fea10574ad6a5b377c954d749ab00Mw2lB:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::KMS::Key"
+    DeletionPolicy: "Retain"
+    Properties:
+      Origin: "AWS_KMS"
+      MultiRegion: false
+      Description: "Default key that protects my RDS database volumes when no other\
+        \ key is defined"
+      KeyPolicy:
+        Version: "2012-10-17"
+        Statement:
+        - Condition:
+            StringEquals:
+              kms:ViaService: "rds.ap-south-1.amazonaws.com"
+              kms:CallerAccount: "119391704005"
+          Resource: "*"
+          Action:
+          - "kms:Encrypt"
+          - "kms:Decrypt"
+          - "kms:ReEncrypt*"
+          - "kms:GenerateDataKey*"
+          - "kms:CreateGrant"
+          - "kms:ListGrants"
+          - "kms:DescribeKey"
+          Effect: "Allow"
+          Principal:
+            AWS: "*"
+          Sid: "Allow access through RDS for all principals in the account that are\
+            \ authorized to use RDS"
+        - Resource: "*"
+          Action:
+          - "kms:Describe*"
+          - "kms:Get*"
+          - "kms:List*"
+          - "kms:RevokeGrant"
+          Effect: "Allow"
+          Principal:
+            AWS: "arn:aws:iam::119391704005:root"
+          Sid: "Allow direct access to key metadata to the account"
+        Id: "auto-rds-2"
+      KeySpec: "SYMMETRIC_DEFAULT"
+      Enabled: true
+      EnableKeyRotation: true
+      KeyUsage: "ENCRYPT_DECRYPT"
+      Tags: []
+  RDSDBSubnetGroup00defaultvpc057085822683d624400CRCN1:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::RDS::DBSubnetGroup"
+    DeletionPolicy: "Retain"
+    Properties:
+      SubnetIds:
+        Ref: "RDSDBSubnetGroup00defaultvpc057085822683d624400CRCN1SubnetIdsm41Iw"
+      DBSubnetGroupDescription: "Created from the RDS Management Console"
+      DBSubnetGroupName: "default-vpc-057085822683d6244"
+  IAMRole00rdsmonitoringrole00NO3nA:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::IAM::Role"
+    DeletionPolicy: "Retain"
+    Properties:
+      Path: "/"
+      ManagedPolicyArns:
+      - "arn:aws:iam::aws:policy/service-role/AmazonRDSEnhancedMonitoringRole"
+      MaxSessionDuration: 3600
+      RoleName: "rds-monitoring-role"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+        - Action: "sts:AssumeRole"
+          Effect: "Allow"
+          Principal:
+            Service: "monitoring.rds.amazonaws.com"
+          Sid: ""
+  EC2SecurityGroup00sg05c53aa960b0c5bd500Vu3KP:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::SecurityGroup"
+    DeletionPolicy: "Retain"
+    Properties:
+      GroupDescription: "Amazon-QuickSight-access"
+      GroupName: "Amazon-QuickSight-access"
+      VpcId:
+        Ref: "EC2VPC00vpc057085822683d624400uA0cP"
+      SecurityGroupIngress:
+      - CidrIp: "52.66.193.64/27"
+        IpProtocol: "tcp"
+        Description: "Asia Pacific (Mumbai) (ap-south-1) Quicksight"
+        FromPort: 5439
+        ToPort: 5439
+      - CidrIp: "52.66.193.64/27"
+        IpProtocol: "tcp"
+        Description: "Asia Pacific (Mumbai) (ap-south-1) Quicksight"
+        FromPort: 5432
+        ToPort: 5432
+      SecurityGroupEgress:
+      - CidrIp: "0.0.0.0/0"
+        IpProtocol: "-1"
+        FromPort: -1
+        ToPort: -1
+  EC2VPC00vpc057085822683d624400uA0cP:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::VPC"
+    DeletionPolicy: "Retain"
+    Properties:
+      CidrBlock: "172.31.0.0/16"
+      EnableDnsSupport: true
+      InstanceTenancy: "default"
+      EnableDnsHostnames: true
+      Tags: []
+  EC2SecurityGroup00sg048f73cfe073ba5c000KrT8X:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::EC2::SecurityGroup"
+    DeletionPolicy: "Retain"
+    Properties:
+      GroupDescription: "default VPC security group"
+      GroupName: "default"
+      VpcId:
+        Ref: "EC2VPC00vpc057085822683d624400uA0cP"
+      SecurityGroupIngress:
+      - CidrIp: "10.47.188.128/32"
+        IpProtocol: "tcp"
+        FromPort: 5439
+        ToPort: 5439
+      - CidrIp:
+          Fn::GetAtt:
+          - "EC2VPC00vpc057085822683d624400uA0cP"
+          - "CidrBlock"
+        IpProtocol: "tcp"
+        FromPort: 5432
+        ToPort: 5432
+      - CidrIp: "117.192.167.170/32"
+        IpProtocol: "tcp"
+        FromPort: 5432
+        ToPort: 5432
+      - IpProtocol: "-1"
+        FromPort: -1
+        SourceSecurityGroupId:
+          Fn::GetAtt:
+          - "EC2VPC00vpc057085822683d624400uA0cP"
+          - "DefaultSecurityGroup"
+        ToPort: -1
+        SourceSecurityGroupOwnerId: "119391704005"
+      - CidrIp: "122.171.23.156/32"
+        IpProtocol: "tcp"
+        FromPort: 3306
+        ToPort: 3306
+      SecurityGroupEgress:
+      - CidrIp: "0.0.0.0/0"
+        IpProtocol: "-1"
+        FromPort: -1
+        ToPort: -1
+  RDSDBInstance00database100k7c93:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::RDS::DBInstance"
+    DeletionPolicy: "Retain"
+    Properties:
+      StorageEncrypted: true
+      MonitoringRoleArn:
+        Fn::GetAtt:
+        - "IAMRole00rdsmonitoringrole00NO3nA"
+        - "Arn"
+      AssociatedRoles: []
+      CertificateDetails: {}
+      ProcessorFeatures: []
+      StorageThroughput: 125
+      PreferredBackupWindow: "21:12-21:42"
+      MonitoringInterval: 60
+      DBParameterGroupName: "default.postgres13"
+      Endpoint: {}
+      NetworkType: "IPV4"
+      DedicatedLogVolume: false
+      CopyTagsToSnapshot: true
+      MultiAZ: false
+      Engine: "postgres"
+      Tags: []
+      LicenseModel: "postgresql-license"
+      EngineVersion: "13.13"
+      StorageType: "gp3"
+      KmsKeyId:
+        Fn::GetAtt:
+        - "KMSKey00fb1d1fea10574ad6a5b377c954d749ab00Mw2lB"
+        - "Arn"
+      DBInstanceClass: "db.t4g.micro"
+      AvailabilityZone: "ap-south-1c"
+      OptionGroupName: "default:postgres-13"
+      PreferredMaintenanceWindow: "fri:12:33-fri:13:03"
+      EnablePerformanceInsights: false
+      AutoMinorVersionUpgrade: true
+      DBSubnetGroupName:
+        Ref: "RDSDBSubnetGroup00defaultvpc057085822683d624400CRCN1"
+      DeletionProtection: false
+      Iops: 3000
+      DBInstanceIdentifier: "database-1"
+      AllocatedStorage: "20"
+      CACertificateIdentifier: "rds-ca-2019"
+      ManageMasterUserPassword: false
+      MasterUserSecret: {}
+      VPCSecurityGroups:
+      - Fn::GetAtt:
+        - "EC2SecurityGroup00sg05c53aa960b0c5bd500Vu3KP"
+        - "GroupId"
+      - Fn::GetAtt:
+        - "EC2SecurityGroup00sg048f73cfe073ba5c000KrT8X"
+        - "GroupId"
+      DBSecurityGroups: []
+      MasterUsername: "postgres"
+      EnableIAMDatabaseAuthentication: false
+      BackupRetentionPeriod: 1
+      PubliclyAccessible: true
+      EnableCloudwatchLogsExports: []

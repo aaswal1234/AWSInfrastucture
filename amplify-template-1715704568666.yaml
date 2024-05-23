@@ -1,0 +1,51 @@
+---
+Metadata:
+  TemplateId: "arn:aws:cloudformation:ap-south-1:119391704005:generatedTemplate/b6525dcb-e509-4ad6-a51b-734989ac45b5"
+Resources:
+  AmplifyBranch00appsdivtgkji8sykcbranchesdev00hyhj9:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Amplify::Branch"
+    DeletionPolicy: "Retain"
+    Properties:
+      Backend: {}
+      AppId:
+        Fn::GetAtt:
+        - "AmplifyApp00appsdivtgkji8sykc00Tmy0O"
+        - "AppId"
+      EnablePullRequestPreview: false
+      EnableAutoBuild: true
+      EnablePerformanceMode: false
+      Stage: "PRODUCTION"
+      BranchName: "devdemo"
+  AmplifyApp00appsdivtgkji8sykc00Tmy0O:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Amplify::App"
+    DeletionPolicy: "Retain"
+    Properties:
+      EnableBranchAutoDeletion: false
+      Platform: "WEB"
+      CustomHeaders: ""
+      IAMServiceRole:
+        Fn::GetAtt:
+        - "IAMRole00amplifyconsolebackendrole008htbM"
+        - "Arn"
+      Name: "Upload-to-S3demo"
+  IAMRole00amplifyconsolebackendrole008htbM:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::IAM::Role"
+    DeletionPolicy: "Retain"
+    Properties:
+      Path: "/"
+      ManagedPolicyArns:
+      - "arn:aws:iam::aws:policy/AdministratorAccess-Amplify"
+      MaxSessionDuration: 3600
+      RoleName: "amplifyconsole-backend-roledemo1"
+      Description: "Allows Amplify Backend Deployment to access AWS resources on your\
+        \ behalf."
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+        - Action: "sts:AssumeRole"
+          Effect: "Allow"
+          Principal:
+            Service: "amplify.amazonaws.com"

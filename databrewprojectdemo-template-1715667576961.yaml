@@ -1,0 +1,69 @@
+---
+Metadata:
+  TemplateId: "arn:aws:cloudformation:ap-south-1:119391704005:generatedTemplate/bd9d2d62-58af-4f4d-a3b1-8af08d323b2c"
+Resources:
+  DataBrewProject00Projectsocdata000vA06:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::DataBrew::Project"
+    DeletionPolicy: "Retain"
+    Properties:
+      RecipeName: "Project-soc-data-recipedemo"
+      DatasetName: "S3-soc-datademo1"
+      Sample:
+        Type: "FIRST_N"
+        Size: 500
+      RoleArn: "arn:aws:iam::119391704005:role/service-role/AWSGlueDataBrewServiceRole-Member-Eligibility"
+      
+      Name: "Project-soc-datademo"
+  DataBrewProject00Projectfilecomparison00kGmbL:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::DataBrew::Project"
+    DeletionPolicy: "Retain"
+    Properties:
+      RecipeName: "Project-filecomparison-recipedemo"
+      DatasetName: "S3-filecomparisondemo1"
+      Sample:
+        Type: "FIRST_N"
+        Size: 500
+      RoleArn: "arn:aws:iam::119391704005:role/service-role/AWSGlueDataBrewServiceRole-Member-Eligibility"
+      
+      Name: "Project-filecomparisondemo"
+  DataBrewProject00Project834momarbal00pynwB:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::DataBrew::Project"
+    DeletionPolicy: "Retain"
+    Properties:
+      RecipeName: "Project-834-mom-ar-bal-recipedemo"
+      DatasetName: "S3-834-mom-ar-baldemo1"
+      Sample:
+        Type: "FIRST_N"
+        Size: 500
+      RoleArn: "arn:aws:iam::119391704005:role/service-role/AWSGlueDataBrewServiceRole-Member-Eligibility"
+      
+      Name: "Project-834-mom-ar-baldemo"
+  DataBrewProject00Projectmpraddresschange00RVtPm:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::DataBrew::Project"
+    DeletionPolicy: "Retain"
+    Properties:
+      RecipeName: "Project-mpr-address-change-recipedemo"
+      DatasetName: "S3-MPR-AddressChangedemo1"
+      Sample:
+        Type: "FIRST_N"
+        Size: 500
+      RoleArn: "arn:aws:iam::119391704005:role/service-role/AWSGlueDataBrewServiceRole-Member-Eligibility"
+      
+      Name: "Project-mpr-address-changedemo"
+  DataBrewProject00Projectmprje00Dp2kW:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::DataBrew::Project"
+    DeletionPolicy: "Retain"
+    Properties:
+      RecipeName: "Project-mpr-je-recipedemo"
+      DatasetName: "S3-mpr-jedemo1"
+      Sample:
+        Type: "FIRST_N"
+        Size: 500
+      RoleArn: "arn:aws:iam::119391704005:role/service-role/AWSGlueDataBrewServiceRole-Member-Eligibility"
+      
+      Name: "Project-mpr-jedemo"

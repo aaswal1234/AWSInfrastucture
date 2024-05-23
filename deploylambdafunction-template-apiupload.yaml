@@ -1,0 +1,157 @@
+---
+Metadata:
+  TemplateId: "arn:aws:cloudformation:ap-south-1:119391704005:generatedTemplate/d026c9ae-6619-4c7c-91f2-f529d065a052"
+Parameters:
+  LambdaFunction00lambdaapiuploadfileS300X5pSLCodeS3BucketOneOf8PrOE:
+    NoEcho: "true"
+    Type: "String"
+    Description: "An Amazon S3 bucket in the same AWS-Region as your function. The\
+      \ bucket can be in a different AWS-account.\nThis property can be replaced with\
+      \ other exclusive properties"
+  LambdaFunction00lambdaapiuploadfileS300X5pSLCodeS3KeyOneOf006WF:
+    NoEcho: "true"
+    Type: "String"
+    Description: "The Amazon S3 key of the deployment package.\nThis property can\
+      \ be replaced with other exclusive properties"
+Resources:
+  LambdaFunction00lambdaapiuploadfileS300X5pSL:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Lambda::Function"
+    DeletionPolicy: "Retain"
+    Properties:
+      MemorySize: 128
+      Description: ""
+      TracingConfig:
+        Mode: "PassThrough"
+      Timeout: 10
+      RuntimeManagementConfig:
+        UpdateRuntimeOn: "Auto"
+      Handler: "lambda_function.lambda_handler"
+      Code:
+        S3Bucket:
+          Ref: "LambdaFunction00lambdaapiuploadfileS300X5pSLCodeS3BucketOneOf8PrOE"
+        S3Key:
+          Ref: "LambdaFunction00lambdaapiuploadfileS300X5pSLCodeS3KeyOneOf006WF"
+      Role:
+        Fn::GetAtt:
+        - "IAMRole00LambdaSampleapiprojectroletpld7ojz00hyhj9"
+        - "Arn"
+      FileSystemConfigs: []
+      FunctionName: "lambda-api-upload-file-S3demo"
+      Runtime: "python3.12"
+      PackageType: "Zip"
+      LoggingConfig:
+        LogFormat: "Text"
+        LogGroup: "/aws/lambda/lambda-api-upload-file-S3"
+      EphemeralStorage:
+        Size: 512
+      Architectures:
+      - "x86_64"
+  IAMRole00LambdaSampleapiprojectroletpld7ojz00hyhj9:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::IAM::Role"
+    DeletionPolicy: "Retain"
+    Properties:
+      Path: "/service-role/"
+      ManagedPolicyArns:
+      - "arn:aws:iam::119391704005:policy/service-role/AWSLambdaBasicExecutionRole-3335b530-a51a-4c21-a6ae-8aec442f9809"
+      MaxSessionDuration: 3600
+      RoleName: "Lambda-Sample-api-project-roledemo1-tpld7ojz"
+      Policies:
+      - PolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+          - Resource: "arn:aws:dynamodb:*:119391704005:table/*/index/*"
+            Action:
+            - "dynamodb:Scan"
+            - "dynamodb:Query"
+            Effect: "Allow"
+            Sid: "VisualEditor0"
+          - Resource: "arn:aws:dynamodb:*:119391704005:table/*"
+            Action:
+            - "dynamodb:PutItem"
+            - "dynamodb:DeleteItem"
+            - "dynamodb:GetItem"
+            - "dynamodb:Scan"
+            - "dynamodb:Query"
+            - "dynamodb:UpdateItem"
+            Effect: "Allow"
+            Sid: "VisualEditor1"
+        PolicyName: "powerofmathDynamopolicydemo1"
+      - PolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+          - Resource: "arn:aws:s3:::*/*"
+            Action:
+            - "s3:PutObject"
+            - "s3:GetObject"
+            Effect: "Allow"
+            Sid: "VisualEditor0"
+        PolicyName: "S3-Get-Put-access-to-lambdademo1"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+        - Action: "sts:AssumeRole"
+          Effect: "Allow"
+          Principal:
+            Service: "lambda.amazonaws.com"
+  LambdaPermission00functionlambdaapiuploadfileS300YC1E9:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Lambda::Permission"
+    DeletionPolicy: "Retain"
+    Properties:
+      FunctionName:
+        Fn::GetAtt:
+        - "LambdaFunction00lambdaapiuploadfileS300X5pSL"
+        - "Arn"
+      Action: "lambda:InvokeFunction"
+      SourceArn: "arn:aws:execute-api:ap-south-1:119391704005:id3tzw7z3j/*/POST/"
+      Principal: "apigateway.amazonaws.com"
+  LambdaPermission00functionlambdaapiuploadfileS300eoO3S:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Lambda::Permission"
+    DeletionPolicy: "Retain"
+    Properties:
+      FunctionName:
+        Fn::GetAtt:
+        - "LambdaFunction00lambdaapiuploadfileS300X5pSL"
+        - "Arn"
+      Action: "lambda:InvokeFunction"
+      SourceArn: "arn:aws:execute-api:ap-south-1:119391704005:o3drj59r84/*/POST/*/*"
+      Principal: "apigateway.amazonaws.com"
+  LambdaPermission00functionlambdaapiuploadfileS300Md0VJ:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Lambda::Permission"
+    DeletionPolicy: "Retain"
+    Properties:
+      FunctionName:
+        Fn::GetAtt:
+        - "LambdaFunction00lambdaapiuploadfileS300X5pSL"
+        - "Arn"
+      Action: "lambda:InvokeFunction"
+      SourceArn: "arn:aws:execute-api:ap-south-1:119391704005:o3drj59r84/*/PUT/*/*"
+      Principal: "apigateway.amazonaws.com"
+  LambdaPermission00functionlambdaapiuploadfileS300uz7ny:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Lambda::Permission"
+    DeletionPolicy: "Retain"
+    Properties:
+      FunctionName:
+        Fn::GetAtt:
+        - "LambdaFunction00lambdaapiuploadfileS300X5pSL"
+        - "Arn"
+      Action: "lambda:InvokeFunction"
+      SourceArn: "arn:aws:execute-api:ap-south-1:119391704005:o3drj59r84/*/POST/*"
+      Principal: "apigateway.amazonaws.com"
+  LambdaPermission00functionlambdaapiuploadfileS3008htbM:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Lambda::Permission"
+    DeletionPolicy: "Retain"
+    Properties:
+      FunctionName:
+        Fn::GetAtt:
+        - "LambdaFunction00lambdaapiuploadfileS300X5pSL"
+        - "Arn"
+      Action: "lambda:InvokeFunction"
+      SourceArn: "arn:aws:execute-api:ap-south-1:119391704005:o3drj59r84/*/GET/*/*"
+      Principal: "apigateway.amazonaws.com"

@@ -1,0 +1,64 @@
+---
+Metadata:
+  TemplateId: "arn:aws:cloudformation:ap-south-1:119391704005:generatedTemplate/1be6e012-1a9a-4acb-b005-9d7267a4c42a"
+Resources:
+  DataBrewDataset00S3filecomparison0058N7u:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::DataBrew::Dataset"
+    DeletionPolicy: "Retain"
+    Properties:
+      Input:
+        DataCatalogInputDefinition:
+          DatabaseName: "integrationframework"
+          TableName: "filecomparison_csv"
+          CatalogId: "119391704005"
+      
+      Name: "S3-filecomparisondemo1"
+  DataBrewDataset00S3MPRAddressChange00ZQSD7:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::DataBrew::Dataset"
+    DeletionPolicy: "Retain"
+    Properties:
+      Input:
+        DataCatalogInputDefinition:
+          DatabaseName: "integrationframework"
+          TableName: "prt_mpr_addr_change_dhcs_834_csv"
+          CatalogId: "119391704005"
+      
+      Name: "S3-MPR-AddressChangedemo1"
+  DataBrewDataset00S3socdata002QVR7:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::DataBrew::Dataset"
+    DeletionPolicy: "Retain"
+    Properties:
+      Input:
+        DataCatalogInputDefinition:
+          DatabaseName: "integrationframework"
+          TableName: "soc_data_csv"
+          CatalogId: "119391704005"
+      
+      Name: "S3-soc-datademo1"
+  DataBrewDataset00S3834momarbal00LZoxu:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::DataBrew::Dataset"
+    DeletionPolicy: "Retain"
+    Properties:
+      Input:
+        DataCatalogInputDefinition:
+          DatabaseName: "integrationframework"
+          TableName: "834_mom_ar_bal_csv"
+          CatalogId: "119391704005"
+      
+      Name: "S3-834-mom-ar-baldemo1"
+  DataBrewDataset00S3mprje00xnRfh:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::DataBrew::Dataset"
+    DeletionPolicy: "Retain"
+    Properties:
+      Input:
+        DataCatalogInputDefinition:
+          DatabaseName: "integrationframework"
+          TableName: "mpr_je_csv"
+          CatalogId: "119391704005"
+      
+      Name: "S3-mpr-jedemo1"

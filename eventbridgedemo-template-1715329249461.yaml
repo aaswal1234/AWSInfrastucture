@@ -1,0 +1,299 @@
+---
+Metadata:
+  TemplateId: "arn:aws:cloudformation:ap-south-1:119391704005:generatedTemplate/135b7bb1-83f5-4432-88a9-77f6d47eb52f"
+Parameters:
+  LambdaFunction00LambdaCSVremoveExtrarows00KeSoyCodeS3BucketOneOfwIIao:
+    NoEcho: "true"
+    Type: "String"
+    Description: "An Amazon S3 bucket in the same AWS-Region as your function. The\
+      \ bucket can be in a different AWS-account.\nThis property can be replaced with\
+      \ other exclusive properties"
+  LambdaFunction00LambdaCSVremoveExtrarows00KeSoyCodeS3KeyOneOf6vyEn:
+    NoEcho: "true"
+    Type: "String"
+    Description: "The Amazon S3 key of the deployment package.\nThis property can\
+      \ be replaced with other exclusive properties"
+Resources:
+  LambdaFunction00LambdaCSVremoveExtrarows00KeSoy:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Lambda::Function"
+    DeletionPolicy: "Retain"
+    Properties:
+      MemorySize: 128
+      Description: ""
+      TracingConfig:
+        Mode: "PassThrough"
+      Timeout: 60
+      RuntimeManagementConfig:
+        UpdateRuntimeOn: "Auto"
+      Handler: "lambda_function.lambda_handler"
+      Code:
+        S3Bucket:
+          Ref: "LambdaFunction00LambdaCSVremoveExtrarows00KeSoyCodeS3BucketOneOfwIIao"
+        S3Key:
+          Ref: "LambdaFunction00LambdaCSVremoveExtrarows00KeSoyCodeS3KeyOneOf6vyEn"
+      Role:
+        Fn::GetAtt:
+        - "IAMRole00LambdaCSVremoveExtrarowsrole59ds9rbl00MqAK8"
+        - "Arn"
+      FileSystemConfigs: []
+      FunctionName: "Lambda_CSV_remove_Extra_rowsdemonew5"
+      Runtime: "python3.10"
+      PackageType: "Zip"
+      LoggingConfig:
+        LogFormat: "Text"
+        LogGroup: "/aws/lambda/Lambda_CSV_remove_Extra_rowsdemonew5"
+      EphemeralStorage:
+        Size: 512
+      Architectures:
+      - "x86_64"
+  IAMRole00AmazonEventBridgeInvokeStepFunctionsMemberEligibility00rHBdv:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::IAM::Role"
+    DeletionPolicy: "Retain"
+    Properties:
+      Path: "/service-role/"
+      ManagedPolicyArns:
+      - "arn:aws:iam::119391704005:policy/service-role/Amazon_EventBridge_Invoke_Step_Functions_Member_Eligibility"
+      MaxSessionDuration: 3600
+      RoleName: "Amazon_EventBridge_Mem_Eligibilitydemo5"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+        - Action: "sts:AssumeRole"
+          Effect: "Allow"
+          Principal:
+            Service: "events.amazonaws.com"
+  StepFunctionsStateMachine00stateMachineStatemachineLambdaMemberEligibilityInvokeDatabrew00pntWX:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::StepFunctions::StateMachine"
+    DeletionPolicy: "Retain"
+    Properties:
+      DefinitionString: "{\"Comment\":\"A description of my state machine\",\"StartAt\"\
+        :\"Lambda Invoke\",\"States\":{\"Lambda Invoke\":{\"Type\":\"Task\",\"Resource\"\
+        :\"arn:aws:states:::aws-sdk:lambda:invoke\",\"OutputPath\":\"$.Payload\",\"\
+        Parameters\":{\"FunctionName\":\"arn:aws:lambda:ap-south-1:119391704005:function:Lambda-invoke-databrew-mem-eligibilitydemo5:$LATEST\"\
+        ,\"Payload.$\":\"$\"},\"Retry\":[{\"ErrorEquals\":[\"Lambda.ServiceException\"\
+        ,\"Lambda.AWSLambdaException\",\"Lambda.SdkClientException\",\"Lambda.TooManyRequestsException\"\
+        ],\"IntervalSeconds\":1,\"MaxAttempts\":3,\"BackoffRate\":2}],\"End\":true}}}"
+      LoggingConfiguration:
+        IncludeExecutionData: false
+        Level: "OFF"
+      StateMachineName: "Statemachine-Lambda-Mem-Eligibility-Invoke-Databrewdemo5"
+      RoleArn:
+        Fn::GetAtt:
+        - "IAMRole00StepFunctionsStatemachineLambdaMemberEligibilrolekt8blc53i009TS5t"
+        - "Arn"
+      Tags: []
+      StateMachineType: "STANDARD"
+      TracingConfiguration:
+        Enabled: false
+  EventsRule00ruleS3MemberEligibilityinvokeStepFunctionDatabrew001RG5M:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Events::Rule"
+    DeletionPolicy: "Retain"
+    Properties:
+      EventBusName: "default"
+      EventPattern:
+        detail-type:
+        - "Object Created"
+        source:
+        - "aws.s3"
+        detail:
+          bucket:
+            name:
+            - "integrationframeworkdemo1"
+          object:
+            key:
+            - prefix: "source/834_mom_ar_bal/"
+            - prefix: "source/filecomparison/"
+            - prefix: "source/mpr_je/"
+            - prefix: "source/prt_mpr_addr_change_dhcs_834/"
+            - prefix: "source/soc_data/"
+            - prefix: "intermediate/streamdataFirehose/"
+      Targets:
+      - Arn:
+          Ref: "StepFunctionsStateMachine00stateMachineStatemachineLambdaMemberEligibilityInvokeDatabrew00pntWX"
+        RoleArn:
+          Fn::GetAtt:
+          - "IAMRole00AmazonEventBridgeStepFunctionsMemEligibilityDatabrew00eTFIs"
+          - "Arn"
+        Id: "Idfef9ad63-8fc5-4ab7-9021-19be135ac207"
+      Id: "Lambda-invoke-databrew-mem-eligibilitydemo5"
+      State: "ENABLED"
+      Name: "Lambda-invoke-databrew-mem-eligibilitydemo5"
+  EventsRule00ruleS3MemberEligibilityinvokeStepFunction005Xeaq:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Events::Rule"
+    DeletionPolicy: "Retain"
+    Properties:
+      EventBusName: "default"
+      EventPattern:
+        detail-type:
+        - "Object Created"
+        source:
+        - "aws.s3"
+        detail:
+          bucket:
+            name:
+            - "integrationframeworkdemo1"
+          object:
+            key:
+            - prefix: "intermediate/databrewoutput/"
+            - prefix: "intermediate/databrewoutputstreamed/"
+      Description: "Rule to invoke step function for Member Eligibility files and\
+        \ jobs"
+      State: "ENABLED"
+      Targets:
+      - Arn:
+          Ref: "StepFunctionsStateMachine00stateMachineStatemachineLambdaMemberEligibilityInvokeGlue00sQPTu"
+        RoleArn:
+          Fn::GetAtt:
+          - "IAMRole00AmazonEventBridgeInvokeStepFunctionsMemberEligibility00rHBdv"
+          - "Arn"
+        Id: "Idae4b2bff-3948-41ff-a88c-ccea613e1ff4"
+      Id: "S3_Member_Eligibility_invoke_Step_Functiondemo5"
+      Name: "S3_Member_Eligibility_invoke_Step_Functiondemo5"
+  IAMRole00StepFunctionsStatemachineLambdaMemberEligibilrolekt8blc53i009TS5t:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::IAM::Role"
+    DeletionPolicy: "Retain"
+    Properties:
+      Path: "/service-role/"
+      ManagedPolicyArns:
+      - "arn:aws:iam::119391704005:policy/service-role/XRayAccessPolicy-efb77b5e-fafd-4cdc-a1e0-01688f6f036a"
+      - "arn:aws:iam::119391704005:policy/service-role/LambdaInvokeScopedAccessPolicy-3d547773-af46-4c57-bb3b-ac8f01824b13"
+      MaxSessionDuration: 3600
+      RoleName: "StepFunctions-Statemachine-roledemo5-kt8blc53i"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+        - Action: "sts:AssumeRole"
+          Effect: "Allow"
+          Principal:
+            Service: "states.amazonaws.com"
+  IAMRole00LambdaCSVremoveExtrarowsrole59ds9rbl00MqAK8:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::IAM::Role"
+    DeletionPolicy: "Retain"
+    Properties:
+      Path: "/service-role/"
+      ManagedPolicyArns:
+      - "arn:aws:iam::119391704005:policy/service-role/AWSLambdaBasicExecutionRole-2b8add2c-6fcc-4326-aeac-c057bdd6ac1c"
+      MaxSessionDuration: 3600
+      RoleName: "Lambda_CSV_Extra_rowsdemonew5-role-59ds9rbl"
+      Policies:
+      - PolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+          - Resource: "arn:aws:s3:::*/*"
+            Action:
+            - "s3:PutObject"
+            - "s3:Get*"
+            - "s3:List*"
+            - "s3:Describe*"
+            Effect: "Allow"
+            Sid: "VisualEditor0"
+        PolicyName: "S3ReadWriteAccess"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+        - Action: "sts:AssumeRole"
+          Effect: "Allow"
+          Principal:
+            Service: "lambda.amazonaws.com"
+  IAMRole00AmazonEventBridgeStepFunctionsMemEligibilityDatabrew00eTFIs:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::IAM::Role"
+    DeletionPolicy: "Retain"
+    Properties:
+      Path: "/service-role/"
+      ManagedPolicyArns:
+      - "arn:aws:iam::119391704005:policy/service-role/Amazon_EventBridge_Step_Functions_Mem_Eligibility_Databrew"
+      MaxSessionDuration: 3600
+      RoleName: "Amazon_EventBridge_Step_Func_Mem_Eligibility_Databrewdemo5"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+        - Action: "sts:AssumeRole"
+          Effect: "Allow"
+          Principal:
+            Service: "events.amazonaws.com"
+  IAMRole00StepFunctionsStatemachineLambdaMemberEligibilrolei5o9kkk6000TsOjK:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::IAM::Role"
+    DeletionPolicy: "Retain"
+    Properties:
+      Path: "/service-role/"
+      ManagedPolicyArns:
+      - "arn:aws:iam::119391704005:policy/service-role/XRayAccessPolicy-e43865d7-f1b0-4319-9ca8-63f73561c950"
+      - "arn:aws:iam::119391704005:policy/service-role/CloudWatchLogsDeliveryFullAccessPolicy-7d5bc251-aec1-44b3-8757-36529f7b9241"
+      - "arn:aws:iam::119391704005:policy/service-role/LambdaInvokeScopedAccessPolicy-e3a3d868-e3d9-44d9-b667-5bae535a35c2"
+      MaxSessionDuration: 3600
+      RoleName: "StepFunctions-Lambda-Mem-Eligibil-role5-i5o9kkk60"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+        - Action: "sts:AssumeRole"
+          Effect: "Allow"
+          Principal:
+            Service: "states.amazonaws.com"
+  EventsRule00ruleS3CopyAmplifyFilestoBucket00xEH8n:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Events::Rule"
+    DeletionPolicy: "Retain"
+    Properties:
+      EventBusName: "default"
+      EventPattern:
+        detail-type:
+        - "Object Created"
+        source:
+        - "aws.s3"
+        detail:
+          bucket:
+            name:
+            - "integrationframeworktargetdemo1"
+      Description: "Copy File uploaded through Amplify to the required bucket"
+      State: "ENABLED"
+      Targets:
+      - Arn:
+          Fn::GetAtt:
+          - "LambdaFunction00LambdaCSVremoveExtrarows00KeSoy"
+          - "Arn"
+        Id: "Id1d7c1506-f971-4ec3-ad14-9924d2c6b12d"
+      Id: "S3_Copy_Amplify_Files_to_Bucketdemo5"
+      Name: "S3_Copy_Amplify_Files_to_Bucketdemo5"
+  LambdaPermission00functionLambdaCSVremoveExtrarows00lykM5:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Lambda::Permission"
+    DeletionPolicy: "Retain"
+    Properties:
+      FunctionName:
+        Fn::GetAtt:
+        - "LambdaFunction00LambdaCSVremoveExtrarows00KeSoy"
+        - "Arn"
+      Action: "lambda:InvokeFunction"
+      SourceArn:
+        Ref: "EventsRule00ruleS3CopyAmplifyFilestoBucket00xEH8n"
+      Principal: "events.amazonaws.com"
+  StepFunctionsStateMachine00stateMachineStatemachineLambdaMemberEligibilityInvokeGlue00sQPTu:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::StepFunctions::StateMachine"
+    DeletionPolicy: "Retain"
+    Properties:
+      DefinitionString: "{\"Comment\":\"A description of my state machine\",\"StartAt\"\
+        :\"Lambda Invoke\",\"States\":{\"Lambda Invoke\":{\"Type\":\"Task\",\"Resource\"\
+        :\"arn:aws:states:::aws-sdk:lambda:invoke\",\"OutputPath\":\"$.Payload\",\"\
+        Parameters\":{\"FunctionName\":\"arn:aws:lambda:ap-south-1:119391704005:function:Lambda-invoke-glue-member-eligibilitydemo5:$LATEST\"\
+        ,\"Payload.$\":\"$\"},\"Retry\":[{\"ErrorEquals\":[\"Lambda.ServiceException\"\
+        ,\"Lambda.AWSLambdaException\",\"Lambda.SdkClientException\",\"Lambda.TooManyRequestsException\"\
+        ],\"IntervalSeconds\":1,\"MaxAttempts\":3,\"BackoffRate\":2}],\"End\":true}}}"
+      StateMachineName: "Statemachine-Member-Eligibility-Invoke-Gluedemo5"
+      RoleArn:
+        Fn::GetAtt:
+        - "IAMRole00StepFunctionsStatemachineLambdaMemberEligibilrolei5o9kkk6000TsOjK"
+        - "Arn"
+      Tags: []
+      StateMachineType: "STANDARD"
+      TracingConfiguration:
+        Enabled: false
